@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">RetoTechIntercorp</string>
+
+    <!-- SigninActivity -->
+    <string name="et_hint_phone">Número de teléfono</string>
+    <string name="valid_message_invalid_phone">Teléfono inválido</string>
+
+    <!-- RegisterActivity -->
+    <string name="et_hint_name">Nombre</string>
+    <string name="et_hint_lastname">Apellido</string>
+    <string name="et_hint_age">Edad</string>
+    <string name="et_hint_borndate">Fecha de nacimiento</string>
+    <string name="valid_message_invalid_name">Nombre inválido</string>
+    <string name="valid_message_invalid_lastname">Nombre inválido</string>
+    <string name="valid_message_invalid_age">Edad inválida</string>
+    <string name="valid_message_invalid_borndate">Fecha de nacimiento inválido</string>
+
+
+</resources>

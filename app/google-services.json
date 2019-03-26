@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "63800250496",
+    "firebase_url": "https://retotechintercorp.firebaseio.com",
+    "project_id": "retotechintercorp",
+    "storage_bucket": "retotechintercorp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:63800250496:android:ce2a7130446df83e",
+        "android_client_info": {
+          "package_name": "com.sulca.retotechintercorp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "63800250496-i4el4oblji4a77kuefq2u828ppplve38.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sulca.retotechintercorp",
+            "certificate_hash": "6c2c20b48596e038d23af7182ed4639cda31b1c7"
+          }
+        },
+        {
+          "client_id": "63800250496-nags1i6td3bamka9edfc5dm2gvt8q8t3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVlfd5NmKH-OAvlVRJm3rNJqTe4O2nbfo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "63800250496-nags1i6td3bamka9edfc5dm2gvt8q8t3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
