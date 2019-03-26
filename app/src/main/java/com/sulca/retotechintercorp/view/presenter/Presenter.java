@@ -1,6 +1,6 @@
 package com.sulca.retotechintercorp.view.presenter;
 
-import com.sulca.retotechintercorp.view.interf.BaseView;
+import com.sulca.retotechintercorp.view.interfacee.BaseView;
 
 /**
  * Created by everis on 25/03/19.

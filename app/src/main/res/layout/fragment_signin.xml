@@ -1,45 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-  <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      tools:context=".view.activity.SigninActivity">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.SigninActivity"
+    android:background="@color/blueDark">
 
-      <androidx.cardview.widget.CardView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_margin="24dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center_horizontal"
+        android:layout_margin="22dp"
+        >
 
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:padding="12dp">
+        <ImageView
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/im_logo"
+            android:contentDescription="@null"
+            android:layout_marginTop="32dp"/>
 
-              <com.google.android.material.textfield.TextInputLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content">
+        <TextView
+            android:textColor="@color/gradientCenterColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title"
+            android:textSize="16sp"/>
 
-                  <androidx.appcompat.widget.AppCompatEditText
-                      android:id="@+id/et_phone_number"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:hint="@string/et_hint_phone"
-                      android:inputType="number"
-                      android:maxLength="9"/>
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="@string/et_hint_phone"
+                android:inputType="number"
+                android:maxLength="9"
+                android:background="@drawable/selector_input"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:gravity="center"
+                android:layout_marginTop="32dp"
+                android:singleLine="true"
+                android:imeOptions="actionGo"/>
 
-              </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/btn_request_sms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_text_signin"
+            android:background="@drawable/selector_btn"
+            android:textColor="@color/buttonTextColor"
+            android:layout_marginTop="18dp"
+            android:textSize="20sp"
+            android:singleLine="true"
+            android:textAllCaps="false"/>
 
-              <Button
-                  android:id="@+id/btn_request_sms"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Ingresar"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/titleColor"
+            android:text="@string/me"
+            android:layout_marginTop="24dp"/>
 
-          </LinearLayout>
+    </LinearLayout>
 
-      </androidx.cardview.widget.CardView>
-
-
-  </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

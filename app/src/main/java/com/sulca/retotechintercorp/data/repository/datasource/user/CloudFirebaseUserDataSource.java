@@ -15,40 +15,30 @@ import io.reactivex.ObservableOnSubscribe;
  */
 public class CloudFirebaseUserDataSource implements UserDataSource {
 
-    private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
     public CloudFirebaseUserDataSource() {
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
-    public Observable<Void> register(final String name, final String lastname, final int age, final String dateBorn) {
-        return Observable.create(new ObservableOnSubscribe<Void>() {
-            @Override
-            public void subscribe(final ObservableEmitter<Void> emitter) throws Exception {
-                UserEntity userEntity = new UserEntity();
-                userEntity.setName(name);
-                userEntity.setLastname(lastname);
-                userEntity.setAge(age);
-                userEntity.setDateborn(dateBorn);
+    public Observable<Boolean> register(final String name, final String lastname, final int age, final String dateBorn) {
+        return Observable.create(emitter -> {
+            UserEntity userEntity = new UserEntity();
+            userEntity.setName(name);
+            userEntity.setLastname(lastname);
+            userEntity.setAge(age);
+            userEntity.setDateborn(dateBorn);
 
-                databaseReference.child("user").setValue(userEntity)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                emitter.onNext(null);
-                                emitter.onComplete();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(Exception e) {
-                                emitter.onError(e);
-                            }
-                        });
-            }
+            databaseReference.child("user").push().setValue(userEntity)
+                    .addOnSuccessListener(aVoid -> {
+                        emitter.onNext(true);
+                        emitter.onComplete();
+                    })
+                    .addOnFailureListener(e -> {
+                        emitter.onError(e);
+                        emitter.onComplete();
+                    });
         });
     }
 

@@ -8,15 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sulca.retotechintercorp.R;
-import com.sulca.retotechintercorp.view.interf.SigninView;
+import com.sulca.retotechintercorp.view.activity.RegisterUserActivity;
+import com.sulca.retotechintercorp.view.interfacee.SigninView;
+import com.sulca.retotechintercorp.view.navigation.Navigator;
 import com.sulca.retotechintercorp.view.presenter.SigninPresenter;
 import com.sulca.retotechintercorp.view.util.ValidationUtil;
 
+import androidx.cardview.widget.CardView;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -27,6 +31,9 @@ public class SigninFragment extends BaseFragment implements SigninView {
 
     @BindView(R.id.et_phone_number)
     EditText etPhoneNumber;
+
+    @BindView(R.id.btn_request_sms)
+    Button btnRequestSms;
 
     private SigninPresenter presenter;
 
@@ -52,22 +59,18 @@ public class SigninFragment extends BaseFragment implements SigninView {
 
     @Override
     public void initUI() {
-
-        etPhoneNumber.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_GO) {
-                    requestCode();
-                    return true;
-                }
-                return false;
+        etPhoneNumber.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_GO) {
+                requestCode();
+                return true;
             }
+            return false;
         });
 
     }
 
     @OnClick(R.id.btn_request_sms)
-    public void requestCode() {
+    void requestCode() {
         final String phoneNumber = etPhoneNumber.getText().toString();
         if (!ValidationUtil.isValidPhoneNumber(phoneNumber)) {
             showErrorMessage(getString(R.string.valid_message_invalid_phone));
@@ -86,26 +89,38 @@ public class SigninFragment extends BaseFragment implements SigninView {
 
     @Override
     public void singinOnSuccess() {
+        enableControlls(true);
+        if (getActivity() != null) {
+            startActivity(RegisterUserActivity.getIntent(getActivity()));
+            getActivity().finish();
+        }
+    }
 
+    private void enableControlls(boolean enable) {
+        etPhoneNumber.setEnabled(enable);
+        btnRequestSms.setEnabled(enable);
+        if (enable) btnRequestSms.setText(getString(R.string.btn_text_signin));
+        else btnRequestSms.setText(getString(R.string.btn_text_waiting));
     }
 
     @Override
     public void waitingSms() {
         Toast.makeText(getContext(), "Esperando SMS...", Toast.LENGTH_SHORT).show();
+        enableControlls(false);
     }
 
     @Override
     public void singinOnFailure() {
-
+        enableControlls(true);
     }
 
     @Override
     public void showLoading() {
-
+        Navigator.getInstance().showLoading(getFragmentManager());
     }
 
     @Override
     public void hideLoading() {
-
+        Navigator.getInstance().dismissLoader(getFragmentManager());
     }
 }

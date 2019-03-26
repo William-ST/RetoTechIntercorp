@@ -1,4 +1,4 @@
-package com.sulca.retotechintercorp.data.exception;
+package com.sulca.retotechintercorp.data;
 
 /**
  * Created by everis on 25/03/19.

@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
-import com.sulca.retotechintercorp.data.exception.ConstantsMessage;
+import com.sulca.retotechintercorp.data.ConstantsMessage;
 import com.sulca.retotechintercorp.data.exception.ServerExceptionMessage;
 import com.sulca.retotechintercorp.data.entity.UserEntity;
 
@@ -33,50 +33,36 @@ public class AuthenticatePhoneImpl implements AuthenticatePhone {
 
     @Override
     public Observable<UserEntity> loginSms(final PhoneAuthCredential credential) {
-        //final PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
-        return Observable.create(new ObservableOnSubscribe<UserEntity>() {
-            @Override
-            public void subscribe(final ObservableEmitter<UserEntity> emitter) throws Exception {
-
-                mAuth.signInWithCredential(credential)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    Log.d(TAG, "signInWithCredential:success");
-                                    if (task.getResult() != null) {
-                                        FirebaseUser user = task.getResult().getUser();
-                                        UserEntity userEntity = new UserEntity();
-                                        //userEntity.setId(String.valueOf(user.getUid()));
-                                        emitter.onNext(userEntity);
-                                        emitter.onComplete();
-                                    } else {
-                                        emitter.onError(new ServerExceptionMessage(ConstantsMessage.SERVER_ERROR));
-                                    }
-                                } else {
-                                    Log.w(TAG, "signInWithCredential:failure", task.getException());
-                                    if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                        emitter.onError(new ServerExceptionMessage(ConstantsMessage.SERVER_ERROR_LOGIN_CODE));
-                                    } else {
-                                        emitter.onError(new ServerExceptionMessage(ConstantsMessage.SERVER_ERROR));
-                                    }
-                                }
-                            }
-                        });
-
-            }
-        });
+        return Observable.create(emitter -> mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "signInWithCredential:success");
+                        if (task.getResult() != null) {
+                            FirebaseUser user = task.getResult().getUser();
+                            UserEntity userEntity = new UserEntity();
+                            //userEntity.setId(String.valueOf(user.getUid()));
+                            emitter.onNext(userEntity);
+                        } else {
+                            emitter.onError(new ServerExceptionMessage(ConstantsMessage.SERVER_ERROR));
+                        }
+                    } else {
+                        Log.w(TAG, "signInWithCredential:failure", task.getException());
+                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                            emitter.onError(new ServerExceptionMessage(ConstantsMessage.SERVER_ERROR_LOGIN_CODE));
+                        } else {
+                            emitter.onError(new ServerExceptionMessage(ConstantsMessage.SERVER_ERROR));
+                        }
+                    }
+                    emitter.onComplete();
+                }));
     }
 
     @Override
     public Observable<Void> logout() {
-        return Observable.create(new ObservableOnSubscribe<Void>() {
-            @Override
-            public void subscribe(ObservableEmitter<Void> emitter) throws Exception {
-                mAuth.signOut();
-                emitter.onNext(null);
-                emitter.onComplete();
-            }
+        return Observable.create(emitter -> {
+            mAuth.signOut();
+            emitter.onNext(null);
+            emitter.onComplete();
         });
     }
 

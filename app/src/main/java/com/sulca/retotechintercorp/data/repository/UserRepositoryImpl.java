@@ -17,7 +17,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Observable<Void> register(String name, String lastname, int age, String dateBorn) {
+    public Observable<Boolean> register(String name, String lastname, int age, String dateBorn) {
         return userDataSource.register(name, lastname, age, dateBorn);
     }
 

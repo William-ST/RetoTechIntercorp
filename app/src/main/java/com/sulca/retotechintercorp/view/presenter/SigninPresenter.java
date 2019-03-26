@@ -8,10 +8,10 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.sulca.retotechintercorp.data.entity.UserEntity;
-import com.sulca.retotechintercorp.data.exception.ConstantsMessage;
+import com.sulca.retotechintercorp.data.ConstantsMessage;
 import com.sulca.retotechintercorp.data.repository.AuthenticatePhone;
 import com.sulca.retotechintercorp.data.repository.AuthenticatePhoneImpl;
-import com.sulca.retotechintercorp.view.interf.SigninView;
+import com.sulca.retotechintercorp.view.interfacee.SigninView;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,6 +19,9 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+
+import static com.sulca.retotechintercorp.view.util.Constants.PE_CODE;
+import static com.sulca.retotechintercorp.view.util.Constants.TIME_WAITING_SMS;
 
 /**
  * Created by everis on 25/03/19.
@@ -35,7 +38,7 @@ public class SigninPresenter implements Presenter<SigninView> {
 
     public SigninPresenter() {
         authenticate = new AuthenticatePhoneImpl();
-    }signInWithCredential
+    }
 
     @Override
     public void resume() {
@@ -58,18 +61,18 @@ public class SigninPresenter implements Presenter<SigninView> {
     }
 
     public void requestSms(String phonenumber) {
-        PhoneAuthProvider.getInstance().verifyPhoneNumber("+51"+phonenumber, 60, TimeUnit.SECONDS, view.getActivity(), mCallbacks);
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(PE_CODE+phonenumber, TIME_WAITING_SMS, TimeUnit.SECONDS, view.getActivity(), mCallbacks);
         mVerificationInProgress = true;
     }
 
-    public void signin(PhoneAuthCredential credential) {
+    private void signin(PhoneAuthCredential credential) {
         authenticate.loginSms(credential)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SigninObserver());
     }
 
-    public class SigninObserver implements Observer<UserEntity> {
+    private class SigninObserver implements Observer<UserEntity> {
 
         @Override
         public void onSubscribe(Disposable d) {

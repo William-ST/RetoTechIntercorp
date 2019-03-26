@@ -1,21 +1,9 @@
 package com.sulca.retotechintercorp.view.presenter;
 
-import android.util.Log;
-
-import com.google.firebase.FirebaseException;
-import com.google.firebase.FirebaseTooManyRequestsException;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthProvider;
-import com.sulca.retotechintercorp.data.entity.UserEntity;
-import com.sulca.retotechintercorp.data.exception.ConstantsMessage;
 import com.sulca.retotechintercorp.data.repository.UserRepository;
 import com.sulca.retotechintercorp.data.repository.UserRepositoryImpl;
 import com.sulca.retotechintercorp.data.repository.datasource.user.CloudFirebaseUserDataSource;
-import com.sulca.retotechintercorp.view.interf.RegisterUserView;
-import com.sulca.retotechintercorp.view.interf.SigninView;
-
-import java.util.concurrent.TimeUnit;
+import com.sulca.retotechintercorp.view.interfacee.RegisterUserView;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -62,7 +50,7 @@ public class RegisterUserPresenter implements Presenter<RegisterUserView> {
                 .subscribe(new RegisterObserver());
     }
 
-    public class RegisterObserver implements Observer<Void> {
+    private class RegisterObserver implements Observer<Boolean> {
 
         @Override
         public void onSubscribe(Disposable d) {
@@ -70,8 +58,8 @@ public class RegisterUserPresenter implements Presenter<RegisterUserView> {
         }
 
         @Override
-        public void onNext(Void aVoid) {
-            view.registerOnSuccess();
+        public void onNext(Boolean status) {
+            if (status) view.registerOnSuccess();
         }
 
         @Override

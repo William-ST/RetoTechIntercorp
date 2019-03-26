@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">@color/backgroundColor</color>
+    <color name="colorPrimaryDark">@color/backgroundColor</color>
+    <color name="colorAccent">@color/green</color>
+
+    <color name="green">#41A58D</color>
+    <color name="greenDark">#00796B</color>
+    <color name="blueDark">#154254</color>
+
+    <color name="gradientStartColor">#70cf96</color>
+    <color name="gradientCenterColor">#5fc7bd</color>
+    <color name="gradientEndColor">#53c8e6</color>
+
+    <color name="backgroundColor">#323a4a</color>
+    <color name="textColor">#9daabf</color>
+    <color name="titleColor">#e6e6e6</color>
+    <color name="buttonTextColor">#dff2f1</color>
+
 </resources>

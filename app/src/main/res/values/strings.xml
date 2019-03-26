@@ -1,9 +1,17 @@
 <resources>
     <string name="app_name">RetoTechIntercorp</string>
+    <string name="me">Sulca Talavera William</string>
+
+    <!-- Titles -->
+    <string name="title">RetoTech</string>
+    <string name="title_signin">Validación de usuario</string>
+    <string name="title_register">CREACIÓN DE CLIENTE</string>
 
     <!-- SigninActivity -->
     <string name="et_hint_phone">Número de teléfono</string>
     <string name="valid_message_invalid_phone">Teléfono inválido</string>
+    <string name="btn_text_signin">Ingresar</string>
+    <string name="btn_text_waiting">Esperando sms...</string>
 
     <!-- RegisterActivity -->
     <string name="et_hint_name">Nombre</string>
@@ -14,6 +22,8 @@
     <string name="valid_message_invalid_lastname">Nombre inválido</string>
     <string name="valid_message_invalid_age">Edad inválida</string>
     <string name="valid_message_invalid_borndate">Fecha de nacimiento inválido</string>
-
+    <string name="btn_text_register">Registrar</string>
+    <string name="btn_text_accept">ACEPTAR</string>
+    <string name="label_registeruser_success">¡Registro satisfactorio!</string>
 
 </resources>

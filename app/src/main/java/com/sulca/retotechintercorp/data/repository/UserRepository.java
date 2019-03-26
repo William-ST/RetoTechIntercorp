@@ -7,6 +7,6 @@ import io.reactivex.Observable;
  */
 public interface UserRepository {
 
-    Observable<Void> register(String name, String lastname, int age, String dateBorn);
+    Observable<Boolean> register(String name, String lastname, int age, String dateBorn);
 
 }
