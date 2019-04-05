@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sulca.retotechintercorp.R;
+import com.sulca.retotechintercorp.data.ConstantsMessage;
 import com.sulca.retotechintercorp.view.activity.RegisterUserActivity;
 import com.sulca.retotechintercorp.view.interfacee.SigninView;
 import com.sulca.retotechintercorp.view.navigation.Navigator;
@@ -86,32 +87,40 @@ public class SigninFragment extends BaseFragment implements SigninView {
         presenter.destroy();
     }
 
-
     @Override
     public void singinOnSuccess() {
-        enableControlls(true);
-        if (getActivity() != null) {
-            startActivity(RegisterUserActivity.getIntent(getActivity()));
-            getActivity().finish();
+        if (isAdded()) {
+            enableControlls(true);
+            if (getActivity() != null) {
+                startActivity(RegisterUserActivity.getIntent(getActivity()));
+                getActivity().finish();
+            }
         }
     }
 
     private void enableControlls(boolean enable) {
-        etPhoneNumber.setEnabled(enable);
-        btnRequestSms.setEnabled(enable);
-        if (enable) btnRequestSms.setText(getString(R.string.btn_text_signin));
-        else btnRequestSms.setText(getString(R.string.btn_text_waiting));
+        if (isAdded()) {
+            etPhoneNumber.setEnabled(enable);
+            btnRequestSms.setEnabled(enable);
+            if (enable) btnRequestSms.setText(getString(R.string.btn_text_signin));
+            else btnRequestSms.setText(getString(R.string.btn_text_waiting));
+        }
     }
 
     @Override
     public void waitingSms() {
-        Toast.makeText(getContext(), "Esperando SMS...", Toast.LENGTH_SHORT).show();
-        enableControlls(false);
+        if (isAdded()) {
+            Toast.makeText(getContext(), "Esperando SMS...", Toast.LENGTH_SHORT).show();
+            enableControlls(false);
+        }
     }
 
     @Override
     public void singinOnFailure() {
-        enableControlls(true);
+        if (isAdded()) {
+            showErrorMessage(ConstantsMessage.SERVER_ERROR);
+            enableControlls(true);
+        }
     }
 
     @Override
